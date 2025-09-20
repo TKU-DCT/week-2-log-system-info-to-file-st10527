@@ -7,17 +7,16 @@ from datetime import datetime
 def get_system_info():
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
-    # TODO: Use psutil to get CPU, memory, and disk usage
-    cpu = 
-    memory = 
-    disk = 
+    cpu = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory().percent
+    disk = psutil.disk_usage('/').percent
 
     log_line = f"[{now}] CPU: {cpu}% | MEM: {memory}% | DISK: {disk}%\n"
     return log_line
 
 def write_log(log_line):
-    # TODO: Open 'log.txt' in append mode and write the log_line
-    pass
+    with open("log.txt", "a") as f:
+        f.write(log_line)
 
 if __name__ == "__main__":
     line = get_system_info()
